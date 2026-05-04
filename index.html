@@ -1,160 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarsora Birthday 💖</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarsora's Birthday ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #d81b60;
+            --light-pink: #ffe4ec;
+            --dark-pink: #ad1457;
+            --white: #ffffff;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-body{
-  margin:0;
-  font-family:'Cairo',sans-serif;
-  background:linear-gradient(135deg,#ffe4ec,#ffd1dc);
-  overflow-x:hidden;
-}
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--light-pink);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-/* header */
-.header{
-  text-align:center;
-  padding:30px;
-}
+        /* شاشة الباسورد */
+        #password-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-pink);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.8s ease-in-out;
+        }
 
-.header h1{
-  font-family:'Pacifico';
-  color:#d81b60;
-  font-size:3rem;
-}
+        .login-box {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 400px;
+        }
 
-/* grid */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:20px;
-  padding:20px;
-}
+        .login-box h2 { font-family: 'Pacifico'; color: var(--primary-pink); margin-bottom: 20px; }
+        .login-box input {
+            padding: 12px; border: 2px solid var(--primary-pink);
+            border-radius: 10px; width: 100%; text-align: center; font-size: 18px; outline: none;
+        }
+        .login-box button {
+            margin-top: 15px; background: var(--primary-pink); color: white;
+            border: none; padding: 10px 30px; border-radius: 10px; cursor: pointer; font-weight: bold;
+        }
 
-/* card */
-.card{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
-  position:relative;
-  overflow:hidden;
-}
+        /* المحتوى الرئيسي */
+        #main-content { display: none; padding-bottom: 50px; }
 
-/* avatar */
-.avatar{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #ff4081;
-}
+        header { text-align: center; padding: 60px 20px; }
+        header h1 { font-family: 'Pacifico'; font-size: 3rem; color: var(--primary-pink); }
 
-/* message */
-.msg{
-  margin-top:15px;
-  font-weight:bold;
-  color:#c2185b;
-  opacity:0;
-  transform:translateY(10px);
-  animation:fadeIn 1s forwards;
-}
+        /* سيكشن الأظرف */
+        .envelope-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 80px;
+            padding: 20px;
+            margin-top: 50px;
+        }
 
-@keyframes fadeIn{
-  to{opacity:1;transform:translateY(0);}
-}
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+        }
 
-/* envelope */
-.envelope{
-  background:#ffebf0;
-  border:2px dashed #ff4081;
-  padding:15px;
-  border-radius:15px;
-  margin-top:10px;
-  font-size:0.95rem;
-}
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #f48fb1;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            z-index: 2;
+        }
 
-/* hearts */
-.heart{
-  position:absolute;
-  animation:float 6s linear infinite;
-  color:#ff4081;
-}
+        .envelope .flap {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #e91e63;
+            clip-path: polygon(0 0, 50% 55%, 100% 0);
+            transform-origin: top;
+            transition: 0.6s;
+            z-index: 3;
+        }
 
-@keyframes float{
-  0%{transform:translateY(100vh);opacity:0;}
-  50%{opacity:1;}
-  100%{transform:translateY(-10vh);opacity:0;}
-}
+        .letter {
+            position: absolute;
+            bottom: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 90%;
+            background: white;
+            padding: 15px;
+            text-align: left; /* لضبط اتجاه الإنجليزي */
+            transition: 0.6s;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
 
-/* music button */
-.music{
-  position:fixed;
-  bottom:20px;
-  left:20px;
-  background:#d81b60;
-  color:white;
-  border:none;
-  padding:12px 20px;
-  border-radius:50px;
-  cursor:pointer;
-}
-</style>
+        .letter img {
+            width: 100%; height: 120px; object-fit: cover; border-radius: 5px;
+            margin-bottom: 10px; transition: 0.5s;
+        }
+
+        .letter p {
+            font-size: 13px; color: #444; line-height: 1.5; font-family: sans-serif;
+            font-style: italic;
+        }
+
+        /* حركات الفتح */
+        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 0; }
+        .envelope-wrapper.open .letter { 
+            transform: translateX(-50%) translateY(-150px); 
+            height: 320px; 
+            z-index: 4; 
+        }
+
+        .btn-group { margin-top: 15px; text-align: center; display: none; }
+        .envelope-wrapper.open .btn-group { display: block; }
+        
+        .change-btn {
+            background: var(--primary-pink); color: white; border: none;
+            padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 12px;
+            font-family: 'Cairo'; box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        /* قلوب طايرة */
+        .heart {
+            position: fixed; color: #ff4081; animation: float 5s linear infinite;
+            z-index: -1; pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .music-control { position: fixed; bottom: 20px; right: 20px; z-index: 100; }
+        .music-btn {
+            background: var(--primary-pink); color: white; border: none;
+            padding: 15px; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="header">
-  <h1>Happy Birthday Sarsora 💖</h1>
-  <p>43 left for your birthday 🎂</p>
-</div>
+    <div id="password-screen">
+        <div class="login-box">
+            <h2>عالم سارسورة ❤️</h2>
+            <input type="password" id="passInput" placeholder="اكتب i love you هنا">
+            <button onclick="checkPassword()">افتحي الهدية 🎁</button>
+        </div>
+    </div>
 
-<div class="grid">
+    <div id="main-content">
+        <header>
+            <h1>Happy Birthday Sarsora 💖</h1>
+        </header>
 
-  <div class="card">
-    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
-    <div class="msg">أجمل بنت في الدنيا ✨</div>
-    <div class="envelope">كل سنة وانتي طيبة يا سارسورة 💖</div>
-  </div>
+        <div class="envelope-container">
+            <div class="envelope-wrapper">
+                <div class="envelope" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="flap"></div>
+                    <div class="letter">
+                        <img id="img1" src="https://i.postimg.cc/13pQdmQs/Screenshot-2026-05-04-060037.png" alt="Sarsora 1">
+                        <p id="txt1">
+                            "Since our first conversation, you've been the quiet spark that changed my world, turning ordinary days into moments that feel beautifully meant to be..."
+                        </p>
+                        <div class="btn-group">
+                            <button class="change-btn" onclick="nextStage(1)">افتحي الرسالة التالية ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-  <div class="card">
-    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
-    <div class="msg">Happy Birthday 🎂</div>
-    <div class="envelope">مستنيين يومك الجميل ❤️</div>
-  </div>
+            <div class="envelope-wrapper">
+                <div class="envelope" onclick="this.parentElement.classList.toggle('open')">
+                    <div class="flap"></div>
+                    <div class="letter">
+                        <img id="img2" src="https://i.postimg.cc/PNs7bDNF/Screenshot-2026-05-04-060239.png" alt="Sarsora 2">
+                        <p id="txt2">
+                            "From the moment we met, something in my life shifted—like the universe quietly guiding me toward someone meant for me. You brought warmth into parts of me..."
+                        </p>
+                        <div class="btn-group">
+                            <button class="change-btn" onclick="nextStage(2)">افتحي الرسالة التالية ✨</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-  <div class="card">
-    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
-    <div class="msg">You are special 💖</div>
-    <div class="envelope">ربنا يخليكي لينا ✨</div>
-  </div>
+        <div class="music-control">
+            <button class="music-btn" onclick="toggleMusic()">🎵 شغل أغنية الهضبة</button>
+        </div>
+        <iframe id="player" width="0" height="0" src="https://www.youtube.com/embed/5F-0h_2S7eQ?enablejsapi=1" frameborder="0"></iframe>
+    </div>
 
-</div>
+    <script>
+        // دالة التأكد من كلمة السر
+        function checkPassword() {
+            const pass = document.getElementById('passInput').value.toLowerCase().trim();
+            if (pass === 'i love you') {
+                document.getElementById('password-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('password-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                    initHearts(); // بدء أنيميشن القلوب
+                }, 800);
+            } else { 
+                alert('كلمة السر غلط يا سوسو! ❤️'); 
+            }
+        }
 
-<!-- music -->
-<iframe width="0" height="0"
-src="https://www.youtube.com/embed/U5TqIdff_DQ?autoplay=1&loop=1&playlist=U5TqIdff_DQ"
-allow="autoplay"></iframe>
+        // دالة تغيير المرحلة داخل الظرف (الصور والرسائل)
+        function nextStage(envNum) {
+            const img = document.getElementById('img' + envNum);
+            const txt = document.getElementById('txt' + envNum);
+            
+            img.style.opacity = '0'; // تأثير اختفاء
+            
+            setTimeout(() => {
+                if (envNum === 1) {
+                    img.src = "https://i.postimg.cc/13pQdmQs/Screenshot-2026-05-04-060037.png";
+                    txt.innerHTML = "Ever since we met, my heart knew where it wanted to stay—with you, in every soft moment, every smile, every quiet piece of forever.";
+                } else {
+                    img.src = "https://i.postimg.cc/PNs7bDNF/Screenshot-2026-05-04-060239.png";
+                    txt.innerHTML = "Even through screens and pixels, your laugh reaches me like sunlight through a window—warm, real, and impossible to forget.";
+                }
+                img.style.opacity = '1'; // تأثير ظهور
+            }, 500);
+            
+            event.stopPropagation(); // لمنع إغلاق الظرف تلقائياً
+        }
 
-<button class="music" onclick="alert('الموسيقى شغالة ❤️')">🎵 Music</button>
+        // دالة إنشاء القلوب المتطايرة
+        function initHearts() {
+            setInterval(() => {
+                const h = document.createElement('div');
+                h.innerHTML = '❤️'; h.className = 'heart';
+                h.style.left = Math.random() * 100 + 'vw';
+                h.style.fontSize = Math.random() * 20 + 15 + 'px';
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 5000);
+            }, 300);
+        }
 
-<script>
-function heart(){
-  const h=document.createElement("div");
-  h.innerHTML="❤️";
-  h.classList.add("heart");
-  h.style.left=Math.random()*100+"vw";
-  h.style.fontSize=(Math.random()*20+10)+"px";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-}
-setInterval(heart,300);
-</script>
-
+        // دالة التحكم في الأغنية
+        let playing = false;
+        function toggleMusic() {
+            const player = document.getElementById('player');
+            const btn = document.querySelector('.music-btn');
+            if (!playing) {
+                player.src += "&autoplay=1";
+                btn.innerHTML = "⏸️ إيقاف الأغنية";
+                playing = true;
+            } else {
+                player.src = "https://www.youtube.com/embed/5F-0h_2S7eQ?enablejsapi=1";
+                btn.innerHTML = "🎵 تشغيل الأغنية";
+                playing = false;
+            }
+        }
+    </script>
 </body>
 </html>
