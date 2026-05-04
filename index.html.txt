@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarsora Birthday 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Cairo',sans-serif;
+  background:linear-gradient(135deg,#ffe4ec,#ffd1dc);
+  overflow-x:hidden;
+}
+
+/* header */
+.header{
+  text-align:center;
+  padding:30px;
+}
+
+.header h1{
+  font-family:'Pacifico';
+  color:#d81b60;
+  font-size:3rem;
+}
+
+/* grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+/* card */
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  position:relative;
+  overflow:hidden;
+}
+
+/* avatar */
+.avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid #ff4081;
+}
+
+/* message */
+.msg{
+  margin-top:15px;
+  font-weight:bold;
+  color:#c2185b;
+  opacity:0;
+  transform:translateY(10px);
+  animation:fadeIn 1s forwards;
+}
+
+@keyframes fadeIn{
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* envelope */
+.envelope{
+  background:#ffebf0;
+  border:2px dashed #ff4081;
+  padding:15px;
+  border-radius:15px;
+  margin-top:10px;
+  font-size:0.95rem;
+}
+
+/* hearts */
+.heart{
+  position:absolute;
+  animation:float 6s linear infinite;
+  color:#ff4081;
+}
+
+@keyframes float{
+  0%{transform:translateY(100vh);opacity:0;}
+  50%{opacity:1;}
+  100%{transform:translateY(-10vh);opacity:0;}
+}
+
+/* music button */
+.music{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#d81b60;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:50px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>Happy Birthday Sarsora 💖</h1>
+  <p>43 left for your birthday 🎂</p>
+</div>
+
+<div class="grid">
+
+  <div class="card">
+    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
+    <div class="msg">أجمل بنت في الدنيا ✨</div>
+    <div class="envelope">كل سنة وانتي طيبة يا سارسورة 💖</div>
+  </div>
+
+  <div class="card">
+    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
+    <div class="msg">Happy Birthday 🎂</div>
+    <div class="envelope">مستنيين يومك الجميل ❤️</div>
+  </div>
+
+  <div class="card">
+    <img class="avatar" src="https://i.imgur.com/qDOEQLX.png">
+    <div class="msg">You are special 💖</div>
+    <div class="envelope">ربنا يخليكي لينا ✨</div>
+  </div>
+
+</div>
+
+<!-- music -->
+<iframe width="0" height="0"
+src="https://www.youtube.com/embed/U5TqIdff_DQ?autoplay=1&loop=1&playlist=U5TqIdff_DQ"
+allow="autoplay"></iframe>
+
+<button class="music" onclick="alert('الموسيقى شغالة ❤️')">🎵 Music</button>
+
+<script>
+function heart(){
+  const h=document.createElement("div");
+  h.innerHTML="❤️";
+  h.classList.add("heart");
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(Math.random()*20+10)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+}
+setInterval(heart,300);
+</script>
+
+</body>
+</html>
